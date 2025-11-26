@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="../scripts/mootools.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+
+  <script defer src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+  <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+	<style>
+
+	</style>
+	<title>Usuarios</title>
+</head>
+<body style="background-color: #eee;">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="panel.html" style="padding: 1%; font-size: 175%;">Panel de Administrador</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      
+    </ul>
+    <span class="navbar-text" style="position: absolute; right: 0; margin-right: 8.5%;">
+    	<div id="nombre"></div>
+    	
+    </span>
+    <img src="../media/img/usuario.png" style="width: 4%; height: auto; filter: invert(100%); position: absolute; right: 0; margin-right: 3%;">
+  </div>
+</nav>
+
+<div id="cargando">
+Cargando...
+</div>
+
+<div class="modal fade" id="myModal" style="margin-top: 7%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar Usuario</h4>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">    
+        <form id="agregarUsuario">
+          <label>Nombre:</label><br>
+          <input type="text" id="modalnombre" style="width: 90%;"><br><br>
+          <label>Apellido paterno:</label><br>
+          <input type="text" id="modalprimerap" style="width: 90%;"><br><br>
+          <label>Apellido materno:</label><br>
+          <input type="text" id="modalsegundoap" style="width: 90%;"><br><br>
+          <label>Nombre de usuario:</label><br>
+          <input type="text" id="modalnombreusuario" style="width: 90%;"><br><br>
+          <label>Contraseña:</label><br>
+          <input type="password" id="modalcontra" style="width: 90%;"><br><br>
+          <button class="btn btn-secondary">Cancelar</button>
+          <button class="btn btn-success" onclick="agregarUsuario()">Agregar</button>
+        </form>
+      </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminar" style="margin-top: 10%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Eliminar</h4>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">    
+        <form id="eliminar">
+          <div id="modaltxt">a</div><br>
+          <button class="btn btn-secondary">Cancelar</button>
+          <button class="btn btn-danger" onclick="confirmarEliminacion()">Eliminar</button>
+        </form>
+      </div>
+    </div>
+    </div>
+</div>
+
+<button class="btn btn-primary btn-lg" onclick="modalAgregarUsuario()" style="margin: 1%; opacity: 0;" id="btnagus">Agregar Usuario</button>
+
+<table id="example" class="table table-striped" style="width:100%; opacity: 0;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Nombre de Usuario</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaCuerpo">
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Nombre de Usuario</th>
+                <th>Opciones</th>
+            </tr>
+        </tfoot>
+    </table>
+
+<script>
+  $('nombre').set('text', '[Nombre]');
+  var idSeleccionada;
+  var tabla = $('example');
+  var cuerpoTabla = $('tablaCuerpo');
+  var cargando = $('cargando');
+  var btnagus = $('btnagus');
+  var modaltxt = $('modaltxt');
+  var usuarios = new Array();
+
+  var agnombre = document.getElementById('modalnombre');
+  var agsegundoap = document.getElementById('modalsegundoap');
+  var agprimerap = document.getElementById('modalprimerap');
+  var agnombreusuario = document.getElementById('modalnombreusuario');
+  var agcontra = document.getElementById('modalcontra');
+  
+
+  function modalAgregarUsuario(){
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
+    myModal.toggle();
+  }
+
+  function modalEliminar(id){
+    idSeleccionada = id;
+    modaltxt.set('text', '¿Deseas eliminar al usuario con la id '+id+'?');
+    var myModal = new bootstrap.Modal(document.getElementById('modalEliminar'), {});
+    myModal.toggle();
+  }
+
+  function confirmarEliminacion(){
+    async function postData(url = 'http://localhost:3000/admins/admin/'+idSeleccionada, data = {}) {
+      const response = await fetch(url, {
+        method: 'DELETE'
+      });
+    }
+    postData();
+    alert("eliminado");
+  }
+
+  function agregarUsuario(){
+    async function postData(url, data) {
+        const response = await fetch(url, {
+          method: 'POST', 
+          mode: 'cors', 
+          cache: 'no-cache', 
+          credentials: 'same-origin', 
+          headers: {
+            'Authorization': 'Bearer {token}'
+          },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
+          body: data
+        });
+      }
+      const formData = new FormData();
+      alert("Usuario agregado con éxito");
+      formData.append("nombre", agnombre.value);
+      formData.append("apellido_paterno", agprimerap.value);
+      formData.append("apellido_materno", agsegundoap.value);
+      formData.append("nombre_usuario", agnombreusuario.value);
+      formData.append("contrasena", agcontra.value);
+      postData('http://localhost:3000/admins/admin', formData);
+  }
+
+  const promesa = new Promise(function(completado, error){
+      fetch("http://localhost:3000/admins/admin/", {
+        method: "GET", 
+        mode: "cors", 
+        cache: "no-cache", 
+        credentials: "same-origin", 
+        headers: {
+            "Content-Type": "application/json"
+      }}).then((res) => {
+        return res.json()
+      }).then((data)=>{
+        respuesta = data;
+        completado("1");
+        return data;
+      }).catch((e) => console.error(e));
+    }).then(
+      function(value){
+        if(value=="1"){
+           for(var i=0; i<respuesta.length; i++){
+            var registro = new Array();
+            registro.push(respuesta[i]["id"]);
+            registro.push(respuesta[i]["nombre"]);
+            registro.push(respuesta[i]["apellido_paterno"]);
+            registro.push(respuesta[i]["apellido_materno"]);
+            registro.push(respuesta[i]["nombre_usuario"]);
+            usuarios.push(registro);
+          }
+
+          for(var i=0; i<usuarios.length; i++){
+            var cadena = '<tr>';
+            for(var j=0; j<5; j++){
+              cadena = cadena + '<td>' + usuarios[i][j] + '</td>';
+            }
+            cadena = cadena + '<td><a href="#">Editar</a> <a href="#" onclick="modalEliminar(\''+usuarios[i][0]+'\')">Eliminar</a></td></tr>';
+
+            cuerpoTabla.appendHTML(cadena);
+          }
+          btnagus.setStyle('opacity', '1');
+          tabla.setStyle('opacity', '1');
+          cargando.set('text', '');
+          new DataTable('#example');
+        }
+      }
+    );
+</script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <script src="./scripts/mootools.js"></script>
+    <title>React App</title>
+    <style>
+    .nav-link{
+      font-family: Montserrat;
+      color: rgba(255, 255, 255, 1.0) !important;
+      font-size: 160%;
+    }
+    .nav-link:hover{
+      cursor: pointer;
+      text-decoration: underline;
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+    .nav-item{
+      margin-right: 90px;
+      margin-bottom: 0.7%;
+      margin-top: 0.7%;
+    }
+    .head{
+      text-align: center;
+      width: 100%;
+      background-color: white;
+    }
+    body{
+      background-color: white; 
+    }
+    #main .carousel-item img{
+      max-height: 70vh;
+      object-fit: cover;
+      z-index: -99;
+      opacity: 0.7;
+    }
+    #carrusel .overlay{
+      position: absolute;
+      z-index: 99;
+      color: white;
+      text-shadow: gray 1px 1px;
+      background-color: rgba(0,0,0,0.5);
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+    main .overlay{
+      color: white;
+    }
+    .carousel-caption{
+      position: absolute;
+      z-index: 100;
+      width: 50%;
+      text-align: justify;
+      top: 0;
+      margin-top: 10%;
+    }
+    h5{
+      font-size: 175%;
+      margin-bottom: 2%;
+    }
+    .footer{
+      position: absolute;
+      width: 100%;
+      height: 25%;
+      background-color: #0B231E;
+    }
+
+    .contenedorVP{
+      margin: 4%;
+    }
+    .tituloVP{
+      font-family: Montserrat;
+      font-size: 250%;
+      text-align: left;
+      margin-left: 5%;
+    }
+    .buscadorVP{
+      position: absolute;
+      right: 0;
+      font-family: Montserrat;
+      font-size: 133%;
+      margin-top: -2.25%;
+    }
+    .buscarVP{
+      width: 3.5%;
+      margin-left: 2%;
+      margin-right: 2%;
+    }
+    .buscarVP:hover{
+      filter: invert(60%);
+      cursor: pointer;
+    }
+    .buscadorVP input{
+      border-radius: 15px;
+      margin-left: 1.5%;
+    }
+    .contenedorProyecto{
+      position: relative;
+      background-color: #eee;
+      padding: 0.1%;
+      width: 90%;
+      margin-top: 3%;
+      margin-left: 2%;
+      border-radius: 10px;
+    }
+    .nombreProyecto{
+      margin: 2.5%;
+      font-size: Montserrat;
+      font-size: 180%;
+    }
+    .descProyecto{
+      margin: 2.5%;
+      font-size: Montserrat;
+      font-size: 100%;
+    }
+    .fechaProyecto{
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 2%;
+    }
+    .tarjeta{
+      position: relative;
+      width: 80%;
+      height: 10%;
+      margin-left: 10%;
+      margin-top: 2%;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 2px 2px 15px 2px #777;
+      transition: 0.3s;
+    }
+    .contenidoTarjeta{
+      position: absolute;
+      margin: 1%;
+      width: 65%;
+      text-align: justify;
+    }
+    .tarjetaImgDerecha .contenidoTarjeta{
+      right: 0;
+      margin-right: 8%;
+    }
+    .tarjetaImgIzquierda .contenidoTarjeta{
+      left: 0;
+      margin-left: 4%;
+    }
+    .tarjetaImgIzquierda .imagenNoticia{
+      margin-left: 78%;
+    }
+    .tituloNT{
+      font-size: 160%;
+      margin-bottom: 1%;
+    }
+    .imagenNoticia{
+      width: 20%;
+      height: 80%;
+      padding: 1%;
+    }
+    .imagenNoticia img{
+      width: 100%;
+      height: 100%;
+    }
+    .tarjeta:hover{
+      background-color: #cfcfcf;
+      cursor: pointer;
+    }
+    .vermas{
+      display: none;
+      margin-top: 2%;
+      width: 20%;
+    }
+    .recuadroImagenGL{
+      position: relative;
+      float: left;
+      width: 350px;
+      height: 350px;
+      margin: 10px;
+    }
+    .recuadroNombreGL{
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      opacity: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 140%;
+      padding: 20px;
+      transition: 0.275s;
+    }
+    .descripcionGL{
+      font-size: 65%;
+      margin-top: 2%;
+    }
+    .imagenGL{
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 350px;
+      height: 350px;
+      background-color: #aaa;
+    }
+    .recuadroNombreGL:hover{
+      opacity: 1;
+      cursor: pointer;
+    }
+    .formularioCT{
+      position: absolute;
+      margin-left: 22%;
+      margin-top: 1%;
+      font-size: 115%;
+    }
+    .formularioCT input, textarea{
+      border-radius: 10px;
+    }
+    .contactoCT{
+      position: absolute;
+      padding: 1%;
+      padding-top: 4%;
+      background-color: #0D6EFD;
+      width: 16%;
+      height: 100%;
+      color: white;
+      font-size: 105%;
+    }
+    .cuerpoCT{
+      font-family: Montserrat;
+      position: relative;
+      height: 600px;
+    }
+    .formularioCT .btn{
+      width: 60%;
+    }
+    .formularioCT input{
+      width: 60%;
+    }
+    .IGtodo{
+      position: absolute;
+      z-index: 999;
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 5%;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .IGimagen{
+      height: 80%;
+      width: 80%;
+      margin-left: 10%;
+    }
+    .IGimagen img{
+      height: 100%;
+      width: auto;
+      margin-left: 17.5%;
+    }
+    .IGnombre{
+      font-family: Montserrat;
+      font-weight: bold;
+      font-size: 500%;
+      color: white;
+      margin-left: 10%;
+    }
+    .IGDesc{
+      font-family: Montserrat;
+      font-weight: bold;
+      font-size: 110%;
+      color: white;
+      margin-left: 10%;
+    }
+  </style>
+  <script type="text/javascript">
+    function mostrarImagen(nombre, ruta, descripcion){
+      $('IGtodo').set('HTML', '<div class="IGimagen" di="IGimagen"><img src="'+ruta+'"></div><div class="IGnombre" di="IGnombre">'+nombre+'</div><div class="IGDesc" di="IGDesc">'+descripcion+'</div>')
+      $('IGtodo').setStyle('display', 'block');
+    }
+    function cerrar(){
+      $('IGtodo').setStyle('display', 'none');
+    }
+  </script>
+  </head>
+  <body>
+    <div class="IGtodo" id="IGtodo" onclick="cerrar()">
+    </div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
