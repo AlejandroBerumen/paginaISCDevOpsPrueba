@@ -7,24 +7,30 @@ on:
 
 jobs:
   sonarcloud:
-    name: SonarCloud Scan
-    runs-on: ubuntu-latest
+  name: SonarCloud Scan
+  runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+  steps:
+    - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Install dependencies
+      run: npm install
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v2
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
   deploy:
     runs-on: ubuntu-latest
