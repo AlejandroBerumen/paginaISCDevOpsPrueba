@@ -122,11 +122,11 @@ app.get('/cerrarsesion', (req, res)=>{
     res.redirect('/panel');
 });
 
-app.use(function(req, res){
+/*app.use(function(req, res){
     res.type('html');
     res.status(404);
     res.sendFile(path.join(__dirname, 'vista/pagina', '404.html'));
-});
+});*/
 
 app.listen(port, '0.0.0.0', async ()=>{
 
@@ -140,10 +140,10 @@ app.listen(port, '0.0.0.0', async ()=>{
 
     for(const path of paths){
         try {
-            await fs.access(path); // Verificando si la carpeta existe
+            await fs.access(path); 
         } catch (error) {
             if (error.code === 'ENOENT') {
-                await fs.mkdir(path); // Si la carpeta no existe, la creamos
+                await fs.mkdir(path); 
             }
         }
     }
