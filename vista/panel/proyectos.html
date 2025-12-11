@@ -160,7 +160,7 @@
   }
 
   function confirmarEliminacion(){
-    async function postData(url = 'http://localhost:3000/proyectos/proyecto/'+idSeleccionada, data = {}) {
+    async function postData(url = 'http://18.222.193.46:3000/proyectos/proyecto/'+idSeleccionada, data = {}) {
       const response = await fetch(url, {
         method: 'DELETE'
       });
@@ -170,7 +170,7 @@
   }
 
   const promesa = new Promise(function(completado, error){
-      fetch("http://localhost:3000/proyectos/proyecto/", {
+      fetch("http://18.222.193.46:3000/proyectos/proyecto/", {
         method: "GET", 
         mode: "cors", 
         cache: "no-cache", 
