@@ -411,6 +411,10 @@
   				$('subirFoto1').addEventListener("change", agregarImagenPublicacion, false);
 					contP++;
 				break;
+			case 5:
+				$('contenedorP').appendHTML('<div class="cajas cajaEnlace p'+contP+'">Enlace<br><input type="text" class="txt"><img src="../media/img/cerrar.png" class="btnCerrar" onclick="eliminarP('+contP+')"></div>');
+					contP++;
+				break;
 			}
 		}
 
@@ -466,6 +470,8 @@
 					var contenidoParrafo = value.getChildren('textarea').get('value') + "";
 					contenidoParrafo = contenidoParrafo.replaceAll('\n', '<br>');
 					publicacion = publicacion + "<div class='parrafo'>"+contenidoParrafo+"</div>";
+				}else if(value.hasClass('cajaEnlace')){
+					publicacion = publicacion + "<a href='"+value.getChildren('input').get('value')+"'>Aqui</a>";
 				}else if(value.hasClass('cajaImagen')){
 					//subir imagen
 					async function postData(url, data) {
