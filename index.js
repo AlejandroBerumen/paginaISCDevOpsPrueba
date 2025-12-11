@@ -70,7 +70,7 @@ app.post('/panel', (req, res)=>{
     console.log(data);
     var registros = new Array();
     const promesa = new Promise(function(completado, error){
-            fetch("http://localhost:3000/admins/admin", {
+            fetch("http://18.222.193.46:3000/admins/admin", {
             method: "GET", 
             mode: "cors", 
             cache: "no-cache", 
