@@ -65,6 +65,17 @@ app.get('/prueba', (req, res)=>{
     res.sendFile(path.join(__dirname, 'vista/pagina/galeria/build', 'index.html'));
 });
 
+app.get("/test-db", async (req, res) => {
+    try {
+        const { sequelize } = require("./models");
+        await sequelize.authenticate();
+        res.send("BD OK");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("BD ERROR");
+    }
+});
+
 app.post('/panel', (req, res)=>{
     const data = req.body;
     console.log(data);
@@ -109,7 +120,7 @@ app.post('/panel', (req, res)=>{
                 }
             }
         );
-})
+});
 
 app.get('/adminPanel', (req, res)=>{
     if(req.session.loggedin)
