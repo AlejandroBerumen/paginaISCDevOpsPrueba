@@ -128,7 +128,7 @@ app.use(function(req, res){
     res.sendFile(path.join(__dirname, 'vista/pagina', '404.html'));
 });
 
-app.listen(port, async ()=>{
+app.listen(port, '0.0.0.0', async ()=>{
 
     // rutas
     const paths = [
@@ -149,4 +149,4 @@ app.listen(port, async ()=>{
     }
 
     console.log(`Servidor ejecutandose en http://localhost:${port}`);
-}, '0.0.0.0');
+});
